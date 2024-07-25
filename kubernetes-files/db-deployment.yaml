@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: postgres-db
+    app: postgres-db
+  name: postgres-db
+  namespace: my-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      service: postgres-db
+      app: postgres-db
+  template:
+    metadata:
+      labels:
+        service: postgres-db
+        app: postgres-db
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_DB
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: postgres
+            - name: POSTGRES_USER
+              value: postgres
+          image: postgres
+          name: db
+          ports:
+            - containerPort: 5432
+              name: tcp-db-int
+              protocol: TCP
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      restartPolicy: Always

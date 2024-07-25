@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    service: k8s-consumer
+  name: k8s-consumer
+  namespace: my-app
+spec:
+  containers:
+    - env:
+        - name: KAFKA
+          value: kafka-headless.my-app.svc.cluster.local:9092
+        - name: KAFKA_TOPIC
+          value: k8s-topic
+        - name: DB_HOST
+          value: postgres-db.my-app.svc.cluster.local
+      image: athsilva/k8s-consumer:latest
+      name: k8s-consumer
+  restartPolicy: OnFailure

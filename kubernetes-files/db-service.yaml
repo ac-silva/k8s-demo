@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: postgres-db
+    app: postgres-db
+  name: postgres-db
+  namespace: my-app
+spec:
+  clusterIP: None
+  clusterIPs:
+  - None
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: tcp-db-int
+    port: 5432
+    protocol: TCP
+    targetPort: tcp-db-int
+  selector:
+    app: postgres-db
+  sessionAffinity: None
+  type: ClusterIP
